@@ -1,0 +1,2 @@
+import {useEffect,useState} from 'react';import {Navigate} from 'react-router-dom';import {supabase} from '../lib/supabaseClient'
+export default function RequireAuth({children}){const[loading,setLoading]=useState(true),[ok,setOk]=useState(false);useEffect(()=>{supabase.auth.getSession().then(({data})=>{setOk(!!data.session);setLoading(false)})},[]);if(loading)return <div className="p-8">Verificare sesiune...</div>;return ok?children:<Navigate to="/admin/login"/>}
